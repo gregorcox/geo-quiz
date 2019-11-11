@@ -7,6 +7,7 @@ class CountryContainer extends React.Component {
     this.state = {
       countries: [],
       random: {},
+      categories: ["capital", "flag", "population"],
       loading: true
     };
   }
@@ -29,13 +30,14 @@ class CountryContainer extends React.Component {
         );
     }
     
-    const randomCountry = this.state.countries[Math.floor(
-        Math.random() * this.state.countries.length)];
-    console.log(randomCountry);
+    const randomCategory = this.state.categories[Math.floor(
+        Math.random() * this.state.categories.length
+    )];
+
     return(
       <div>
         <h1>Country</h1>
-        <Question country={randomCountry} />
+        <Question countries={this.state.countries} category={randomCategory} />
       </div>
     )
   }
