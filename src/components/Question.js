@@ -1,21 +1,15 @@
 import React from 'react';
 
+import { getRandomCountry } from "../utils";
+import AnswerOptions from "./AnswerOptions";
+
 class Question extends React.Component {
   constructor(props) {
     super(props);
-
-    this.getRandomCountry = this.getRandomCountry.bind(this);
-  }
-
-  // Generate random country from API
-  getRandomCountry() {
-    return this.props.countries[Math.floor(
-        Math.random() * this.props.countries.length
-    )];
   }
 
   render(){
-    const selectedCountry = this.getRandomCountry();
+    const selectedCountry = getRandomCountry(this.props.countries);
 
     let correctAnswer;
     switch (this.props.category) {
@@ -33,7 +27,7 @@ class Question extends React.Component {
         
         case "flag":
             correctAnswer = (
-                <img src={selectedCountry.flag}></img>
+                <img className="flag" src={selectedCountry.flag} alt="flag"></img>
             )
             break;
         
@@ -45,6 +39,7 @@ class Question extends React.Component {
       <div>
         <h1>What is the {this.props.category} of {selectedCountry.name}?</h1>
         {correctAnswer}
+        <AnswerOptions category={this.props.category} countries={this.props.countries} />
       </div>
     )
   }

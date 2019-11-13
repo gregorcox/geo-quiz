@@ -35,10 +35,7 @@ class CountryContainer extends React.Component {
     )];
 
     return(
-      <div>
-        <h1>Country</h1>
         <Question countries={this.state.countries} category={randomCategory} />
-      </div>
     )
   }
 }
