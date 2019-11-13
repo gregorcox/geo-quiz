@@ -11,35 +11,10 @@ class Question extends React.Component {
   render(){
     const selectedCountry = getRandomCountry(this.props.countries);
 
-    let correctAnswer;
-    switch (this.props.category) {
-        case "capital":
-            correctAnswer = (
-                <h1>{selectedCountry.capital}</h1>
-            )
-            break;
-        
-        case "population":
-            correctAnswer = (
-                <h1>{selectedCountry.population}</h1>
-            )
-            break;
-        
-        case "flag":
-            correctAnswer = (
-                <img className="flag" src={selectedCountry.flag} alt="flag"></img>
-            )
-            break;
-        
-        default:
-            correctAnswer = "";
-    }
-
     return(
       <div>
         <h1>What is the {this.props.category} of {selectedCountry.name}?</h1>
-        {correctAnswer}
-        <AnswerOptions category={this.props.category} countries={this.props.countries} />
+        <AnswerOptions correctCountry={selectedCountry} category={this.props.category} countries={this.props.countries} />
       </div>
     )
   }
