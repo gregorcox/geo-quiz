@@ -25,8 +25,7 @@ class CountryContainer extends React.Component {
   render(){
     if (this.state.loading) {
         return (
-            // TODO: Create loading spinner
-            <div />
+            <div className ="loader"/>
         );
     }
     
