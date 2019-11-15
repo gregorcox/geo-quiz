@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { getRandomCountry, shuffle } from "../utils";
+import Question from './Question';
 
 const AnswerOptions = ({ correctCountry, category, countries }) => {
 
@@ -10,10 +11,18 @@ const AnswerOptions = ({ correctCountry, category, countries }) => {
     answersArray[2] = correctCountry[category];
     shuffle(answersArray);
 
+    const checkAnswer = (answer) => {
+        if (answer === correctCountry[category]) {
+            console.log("Correct");
+        } else {
+            console.log("Wrong");
+        }
+    };
+
     const answerButtons = answersArray.map((answer) => {
         if (category !== "flag") {
             return (
-                <button key={answer}>{answer}</button>
+                <button key={answer} onClick={() => checkAnswer(answer)}>{answer}</button>
             )
         } else {
             return (
