@@ -4,3 +4,8 @@ export const getRandomCountry = (countries) => {
         Math.random() * countries.length
     )];
 }
+
+// Shuffle an array
+export const shuffle = (array) => {
+    array.sort(() => Math.random() - 0.5);
+}

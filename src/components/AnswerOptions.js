@@ -1,23 +1,30 @@
 import React from 'react';
 
-import { getRandomCountry } from "../utils";
+import { getRandomCountry, shuffle } from "../utils";
 
 const AnswerOptions = ({ correctCountry, category, countries }) => {
 
-    if (category !== "flag") {
-        return (
-            <div className="answer-options">
-                <button>{correctCountry[category]}</button>
-                <button>{getRandomCountry(countries)[category]}</button>
-                <button>{getRandomCountry(countries)[category]}</button>
-            </div>
-        );
-    }
+    const answersArray = [];
+    answersArray[0] = getRandomCountry(countries)[category];
+    answersArray[1] = getRandomCountry(countries)[category];
+    answersArray[2] = correctCountry[category];
+    shuffle(answersArray);
+
+    const answerButtons = answersArray.map((answer) => {
+        if (category !== "flag") {
+            return (
+                <button key={answer}>{answer}</button>
+            )
+        } else {
+            return (
+                <img className="flag" src={answer} alt="flag" key={answer}></img>                
+            )
+        }
+    });
+
     return (
         <div className="answer-options">
-            <img className="flag" src={correctCountry[category]} alt="flag"></img>
-            <img className="flag" src={getRandomCountry(countries)[category]} alt="flag"></img>
-            <img className="flag" src={getRandomCountry(countries)[category]} alt="flag"></img>
+            {answerButtons}
         </div>
     )
 };
