@@ -29,9 +29,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  
+
   border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db; 
+  border-top: 16px solid #3498db;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -44,5 +44,19 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.result {
+  display: none;
+  height: 100px;
+  width: 100px;
+
+  &--correct {
+    background-color: green;
+  }
+
+  &--incorrect {
+    background-color: red;
   }
 }

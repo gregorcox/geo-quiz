@@ -60,4 +60,18 @@
             transform: rotate(360deg);
   }
 }
+
+.result {
+  display: none;
+  height: 100px;
+  width: 100px;
+}
+
+.result--correct {
+  background-color: green;
+}
+
+.result--incorrect {
+  background-color: red;
+}
 /*# sourceMappingURL=App.css.map */
