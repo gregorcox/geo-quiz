@@ -13,12 +13,16 @@ class CountryContainer extends React.Component {
   }
 
   componentDidMount(){
-    const url = 'https://restcountries.eu/rest/v2/all';
+    let url = 'https://restcountries.eu/rest/v2/all';
+    if (this.props.region !== "all") {
+      url = `https://restcountries.eu/rest/v2/region/${this.props.region}`
+    }
+
     fetch(url)
       .then((res) => res.json())
-      .then((countries) => this.setState({ 
+      .then((countries) => this.setState({
           countries,
-          loading: false 
+          loading: false
         }));
   }
 
@@ -28,7 +32,7 @@ class CountryContainer extends React.Component {
             <div className ="loader"/>
         );
     }
-    
+
     const randomCategory = this.state.categories[Math.floor(
         Math.random() * this.state.categories.length
     )];

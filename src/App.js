@@ -1,11 +1,11 @@
 import React from 'react';
-import CountryContainer from './containers/CountryContainer';
+import Landing from './containers/Landing';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <CountryContainer/>
+      <Landing />
     </div>
   );
 }
