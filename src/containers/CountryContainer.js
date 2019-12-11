@@ -7,7 +7,7 @@ class CountryContainer extends React.Component {
     this.state = {
       countries: [],
       random: {},
-      categories: ["capital", "flag", "population"],
+      categories: this.props.categories,
       loading: true
     };
   }
