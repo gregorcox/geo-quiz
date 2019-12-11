@@ -39,7 +39,8 @@ class Landing extends React.Component {
     }
 
     return(
-        <>
+        <div className="quiz-options">
+            <label>Select a region:</label>
             <select name="region" onChange={this.handleChange}>
                 <option value="all">All</option>
                 <option value="africa">Africa</option>
@@ -50,7 +51,7 @@ class Landing extends React.Component {
             </select>
 
             <button onClick={this.handleClick}>Continue</button>
-        </>
+        </div>
     )
   }
 }

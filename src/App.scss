@@ -75,3 +75,36 @@
     background-color: red;
   }
 }
+
+.quiz-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 50px;
+
+  select {
+    height: 50px;
+    width: 100px;
+
+    margin: 20px;
+  }
+
+  button {
+    height: 50px;
+    width: 100px;
+
+    margin: 20px;
+
+    border: 1px solid black;
+    border-radius: 25px;
+
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      background-color: green;
+      color: white;
+    }
+  }
+}

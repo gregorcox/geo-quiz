@@ -91,4 +91,39 @@
 .result--incorrect {
   background-color: red;
 }
+
+.quiz-options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 50px;
+}
+
+.quiz-options select {
+  height: 50px;
+  width: 100px;
+  margin: 20px;
+}
+
+.quiz-options button {
+  height: 50px;
+  width: 100px;
+  margin: 20px;
+  border: 1px solid black;
+  border-radius: 25px;
+  cursor: pointer;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.quiz-options button:hover {
+  background-color: green;
+  color: white;
+}
 /*# sourceMappingURL=App.css.map */
