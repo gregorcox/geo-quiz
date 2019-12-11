@@ -22,6 +22,11 @@
     outline: none;
 
     cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      border-width: 2px;
+    }
   }
 }
 
@@ -49,8 +54,16 @@
 
 .result {
   display: none;
-  height: 100px;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
   width: 100px;
+
+  padding: 20px;
+  margin: 20px;
+
+  border: 1px solid black;
+  color: white;
 
   &--correct {
     background-color: green;
