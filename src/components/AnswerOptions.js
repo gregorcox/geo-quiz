@@ -35,7 +35,7 @@ class AnswerOptions extends React.Component {
                 )
             } else {
                 return (
-                    <img className="flag" src={answer} alt="flag" key={answer}></img>
+                    <img className="flag" src={answer} alt="flag" key={answer} onClick={() => this.checkAnswer(answer)}></img>
                 )
             }
         });
