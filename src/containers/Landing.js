@@ -8,7 +8,8 @@ class Landing extends React.Component {
         this.state = {
             region: 'all',
             categories: ["capital", "population", "flag"],
-            loadQuiz: false
+            loadQuiz: false,
+            error: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -38,9 +39,15 @@ class Landing extends React.Component {
     }
 
     handleClick() {
-        this.setState({
-            loadQuiz: true
-        });
+        if (this.state.categories.length > 0) {
+            this.setState({
+                loadQuiz: true
+            });
+        } else {
+            this.setState({
+                error: true
+            });
+        }
     }
 
 
@@ -99,6 +106,8 @@ class Landing extends React.Component {
                 {categorySelector}
 
                 <button onClick={this.handleClick}>Continue</button>
+
+                {this.state.error ? <p>Please select at least 1 category</p> : null}
             </div>
         )
     }
