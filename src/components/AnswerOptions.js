@@ -31,7 +31,7 @@ class AnswerOptions extends React.Component {
         const answerButtons = this.answersArray.map((answer) => {
             if (this.category !== "flag") {
                 return (
-                    <button key={answer} onClick={() => this.checkAnswer(answer)}>{answer}</button>
+                    <button key={answer} onClick={() => this.checkAnswer(answer)}>{answer.toLocaleString()}</button>
                 )
             } else {
                 return (

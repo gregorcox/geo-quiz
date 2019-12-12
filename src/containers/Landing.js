@@ -52,12 +52,7 @@ class Landing extends React.Component {
 
 
     render() {
-        if (this.state.loading) {
-            return (
-                <div className="loader" />
-            );
-        }
-
+        // Load quiz if the user clicks the continue button and there are no errors
         if (this.state.loadQuiz) {
             return <CountryContainer region={this.state.region} categories={this.state.categories} />
         }
