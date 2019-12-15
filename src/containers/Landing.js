@@ -9,6 +9,7 @@ class Landing extends React.Component {
             region: 'all',
             categories: ["capital", "population", "flag"],
             loadQuiz: false,
+            numberOfQuestions: 5,
             error: false
         };
 
@@ -93,12 +94,26 @@ class Landing extends React.Component {
             </div>
         )
 
+        const numberOfQuestions = (
+            <>
+                <label>How many questions would you like?</label>
+                <select name="number" onChange={this.handleChange}>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
+            </>
+        )
+
         return (
             <div className="quiz-options">
 
                 {regionSelector}
 
                 {categorySelector}
+
+                {numberOfQuestions}
 
                 <button onClick={this.handleClick}>Continue</button>
 
