@@ -14,7 +14,7 @@ class Question extends React.Component {
 
     return(
       <div className="question-container">
-        <h1>What is the {randomCategory} of {selectedCountry.name}?</h1>
+        <h1 className="title">What is the {randomCategory} of {selectedCountry.name}?</h1>
         <AnswerOptions
           correctCountry={selectedCountry}
           category={randomCategory}
