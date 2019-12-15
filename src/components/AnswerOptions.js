@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CountryContainer from "../containers/CountryContainer";
+
 import { getRandomCountry, shuffle } from "../utils";
 
 class AnswerOptions extends React.Component {
@@ -16,26 +18,43 @@ class AnswerOptions extends React.Component {
         shuffle(this.answersArray);
 
         this.state = {
-            isCorrect: null
+            isCorrect: null,
+            buttonsDisabled: false,
+            nextButtonClicked: false
         }
+
+        this.generateNextQuestion = this.generateNextQuestion.bind(this);
     }
 
     checkAnswer = (answer) => {
         document.getElementsByClassName('result')[0].style.display = "flex";
         this.setState({
-            isCorrect: answer === this.correctCountry[this.category]
+            isCorrect: answer === this.correctCountry[this.category],
+            buttonsDisabled: true
         });
     };
 
+    generateNextQuestion() {
+        this.setState({
+            nextButtonClicked: true
+        })
+    }
+
     render() {
+        if (this.state.nextButtonClicked) {
+            return <CountryContainer region="Asia" categories={this.props.categoryOptions} />
+        }
+
         const answerButtons = this.answersArray.map((answer) => {
             if (this.category !== "flag") {
                 return (
-                    <button key={answer} onClick={() => this.checkAnswer(answer)}>{answer.toLocaleString()}</button>
+                    <button disabled={this.state.buttonsDisabled} className="answer-option text-button" key={answer} onClick={() => this.checkAnswer(answer)}>{answer.toLocaleString()}</button>
                 )
             } else {
                 return (
-                    <img className="flag" src={answer} alt="flag" key={answer} onClick={() => this.checkAnswer(answer)}></img>
+                    <button disabled={this.state.buttonsDisabled} type="button" onClick={() => this.checkAnswer(answer)} className="answer-option">
+                        <img className="flag" src={answer} alt="flag" key={answer}></img>
+                    </button>
                 )
             }
         });
@@ -51,6 +70,13 @@ class AnswerOptions extends React.Component {
             )
         }
 
+        let nextButton = null;
+        if (this.state.isCorrect !== null) {
+            nextButton = (
+                <button onClick={this.generateNextQuestion}>Next</button>
+            );
+        }
+
         return (
             <>
                 <div className="answer-options">
@@ -58,6 +84,7 @@ class AnswerOptions extends React.Component {
                 </div>
 
                 {result}
+                {nextButton}
             </>
         )
     }
