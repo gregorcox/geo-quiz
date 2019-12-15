@@ -15,7 +15,14 @@ class Question extends React.Component {
     return(
       <div className="question-container">
         <h1>What is the {randomCategory} of {selectedCountry.name}?</h1>
-        <AnswerOptions correctCountry={selectedCountry} category={randomCategory} categoryOptions={categories} countries={this.props.countries} />
+        <AnswerOptions
+          correctCountry={selectedCountry}
+          category={randomCategory}
+          categoryOptions={categories}
+          countries={this.props.countries}
+          region={this.props.region}
+          number={this.props.number}
+        />
       </div>
     )
   }

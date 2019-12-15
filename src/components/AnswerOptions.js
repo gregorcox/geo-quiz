@@ -35,6 +35,7 @@ class AnswerOptions extends React.Component {
     };
 
     generateNextQuestion() {
+        this.questionsAnswered++;
         this.setState({
             nextButtonClicked: true
         })
@@ -42,7 +43,7 @@ class AnswerOptions extends React.Component {
 
     render() {
         if (this.state.nextButtonClicked) {
-            return <CountryContainer region="Asia" categories={this.props.categoryOptions} />
+            return <CountryContainer region={this.props.region} categories={this.props.categoryOptions} />
         }
 
         const answerButtons = this.answersArray.map((answer) => {

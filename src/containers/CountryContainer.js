@@ -34,7 +34,7 @@ class CountryContainer extends React.Component {
     }
 
     return(
-        <Question countries={this.state.countries} categories={this.props.categories} />
+        <Question countries={this.state.countries} categories={this.props.categories} region={this.props.region} number={this.props.number} />
     )
   }
 }
