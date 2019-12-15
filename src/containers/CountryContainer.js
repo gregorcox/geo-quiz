@@ -33,12 +33,8 @@ class CountryContainer extends React.Component {
         );
     }
 
-    const randomCategory = this.state.categories[Math.floor(
-        Math.random() * this.state.categories.length
-    )];
-
     return(
-        <Question countries={this.state.countries} category={randomCategory} />
+        <Question countries={this.state.countries} categories={this.props.categories} />
     )
   }
 }
