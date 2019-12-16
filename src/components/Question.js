@@ -22,7 +22,7 @@ class Question extends React.Component {
   }
 
   render(){
-    const {categories, countries} = this.props;
+    const { categories, countries } = this.props;
 
     const selectedCountry = getRandomItem(countries);
     const category = getRandomItem(categories);

@@ -34,7 +34,11 @@ class CountryContainer extends React.Component {
     }
 
     return(
-        <Question countries={this.state.countries} categories={this.props.categories} region={this.props.region} number={this.props.number} />
+      <>
+        <button onClick={() => {window.location.reload()}}>Start over</button>
+
+        <Question countries={this.state.countries} categories={this.props.categories} />
+      </>
     )
   }
 }
