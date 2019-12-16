@@ -1,5 +1,5 @@
 body {
-  background: #F4F5F7;
+  background: #f4f5f7;
 }
 
 .question-container {
@@ -19,12 +19,10 @@ body {
 }
 
 .flag {
-  height: 150px;
-  width: 225px;
+  height: auto;
+  width: 200px;
   margin: 0px 25px;
-  padding: 1px;
   border: 1px solid black;
-  cursor: pointer;
 }
 
 .answer-options {
@@ -38,18 +36,28 @@ body {
 }
 
 .answer-options button {
+  outline: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.answer-options button:disabled {
+  cursor: not-allowed;
+  opacity: .8;
+}
+
+.answer-options .text-button {
   height: 50px;
   min-width: 100px;
   margin: 0 25px;
   border: 1px solid black;
   border-radius: 25px;
-  outline: none;
-  cursor: pointer;
   -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
 }
 
-.answer-options button:hover {
+.answer-options .text-button:hover {
   border-width: 2px;
 }
 

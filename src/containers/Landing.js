@@ -55,7 +55,7 @@ class Landing extends React.Component {
     render() {
         // Load quiz if the user clicks the continue button and there are no errors
         if (this.state.loadQuiz) {
-            return <CountryContainer region={this.state.region} categories={this.state.categories} />
+            return <CountryContainer region={this.state.region} categories={this.state.categories} number={this.state.numberOfQuestions}/>
         }
 
         const regionSelector = (
@@ -101,7 +101,6 @@ class Landing extends React.Component {
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="25">25</option>
-                    <option value="50">50</option>
                 </select>
             </>
         )
