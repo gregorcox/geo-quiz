@@ -1,7 +1,7 @@
-// Generate a random country from API
-export const getRandomCountry = (countries) => {
-    return countries[Math.floor(
-        Math.random() * countries.length
+// Generate a random item from array
+export const getRandomItem = (array) => {
+    return array[Math.floor(
+        Math.random() * array.length
     )];
 }
 

@@ -1,29 +1,43 @@
 import React from 'react';
 
-import CountryContainer from "../containers/CountryContainer";
-
-import { getRandomCountry, shuffle } from "../utils";
+import { getRandomItem, shuffle } from "../utils";
 
 class AnswerOptions extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            isCorrect: null,
+            buttonsDisabled: false
+        };
+
+        this.generateAnswers();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            this.generateAnswers();
+
+            this.setState({
+                isCorrect: null,
+                buttonsDisabled: false
+            });
+
+            document.getElementsByClassName('result')[0].style.display = "none";
+        }
+    }
+
+    generateAnswers() {
         this.correctCountry = this.props.correctCountry;
         this.category = this.props.category;
         this.countries = this.props.countries;
+
         this.answersArray = [];
-        this.answersArray[0] = getRandomCountry(this.countries)[this.category];
-        this.answersArray[1] = getRandomCountry(this.countries)[this.category];
+        this.answersArray[0] = getRandomItem(this.countries)[this.category];
+        this.answersArray[1] = getRandomItem(this.countries)[this.category];
         this.answersArray[2] = this.correctCountry[this.category];
+
         shuffle(this.answersArray);
-
-        this.state = {
-            isCorrect: null,
-            buttonsDisabled: false,
-            nextButtonClicked: false
-        }
-
-        this.generateNextQuestion = this.generateNextQuestion.bind(this);
     }
 
     checkAnswer = (answer) => {
@@ -34,22 +48,7 @@ class AnswerOptions extends React.Component {
         });
     };
 
-    generateNextQuestion() {
-        this.setState({
-            nextButtonClicked: true
-        })
-    }
-
     render() {
-        if (this.state.nextButtonClicked) {
-            const previousQuestions = Array.from(document.getElementsByClassName('title'));
-            previousQuestions.forEach((question) => {
-                question.style.display = "none";
-            })
-
-            return <CountryContainer region={this.props.region} categories={this.props.categoryOptions} />
-        }
-
         const answerButtons = this.answersArray.map((answer) => {
             if (this.category !== "flag") {
                 return (
@@ -78,7 +77,7 @@ class AnswerOptions extends React.Component {
         let nextButton = null;
         if (this.state.isCorrect !== null) {
             nextButton = (
-                <button onClick={this.generateNextQuestion}>Next</button>
+                <button onClick={() => {this.props.generateNewQuestion()}}>Next</button>
             );
         }
 
