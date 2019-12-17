@@ -9,3 +9,8 @@ export const getRandomItem = (array) => {
 export const shuffle = (array) => {
     array.sort(() => Math.random() - 0.5);
 }
+
+// Check if an array has duplicate items
+export const hasDuplicates = (array) => {
+    return (new Set(array)).size !== array.length;
+}

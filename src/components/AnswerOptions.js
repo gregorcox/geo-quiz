@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getRandomItem, shuffle } from "../utils";
+import { getRandomItem, shuffle, hasDuplicates } from "../utils";
 
 class AnswerOptions extends React.Component {
     constructor(props) {
@@ -36,6 +36,11 @@ class AnswerOptions extends React.Component {
         this.answersArray[0] = getRandomItem(this.countries)[this.category];
         this.answersArray[1] = getRandomItem(this.countries)[this.category];
         this.answersArray[2] = this.correctCountry[this.category];
+
+        // Regenerate the array if there are duplicates
+        if (hasDuplicates(this.answersArray)) {
+            this.generateAnswers();
+        }
 
         shuffle(this.answersArray);
     }
