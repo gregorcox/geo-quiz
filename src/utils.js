@@ -14,3 +14,7 @@ export const shuffle = (array) => {
 export const hasDuplicates = (array) => {
     return (new Set(array)).size !== array.length;
 }
+
+export const hasEmptyValue = (array) => {
+    return array.includes("");
+}

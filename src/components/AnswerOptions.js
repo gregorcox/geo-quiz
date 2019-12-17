@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { getRandomItem, shuffle, hasDuplicates } from "../utils";
+import {
+    getRandomItem,
+    shuffle,
+    hasDuplicates,
+    hasEmptyValue
+} from "../utils";
 
 class AnswerOptions extends React.Component {
     constructor(props) {
@@ -37,8 +42,8 @@ class AnswerOptions extends React.Component {
         this.answersArray[1] = getRandomItem(this.countries)[this.category];
         this.answersArray[2] = this.correctCountry[this.category];
 
-        // Regenerate the array if there are duplicates
-        if (hasDuplicates(this.answersArray)) {
+        // Regenerate the array if there are duplicates or it contains an empty value
+        if (hasDuplicates(this.answersArray) || hasEmptyValue(this.answersArray)) {
             this.generateAnswers();
         }
 
@@ -61,8 +66,8 @@ class AnswerOptions extends React.Component {
                 )
             } else {
                 return (
-                    <button disabled={this.state.buttonsDisabled} type="button" onClick={() => this.checkAnswer(answer)} className="answer-option">
-                        <img className="flag" src={answer} alt="flag" key={answer}></img>
+                    <button disabled={this.state.buttonsDisabled} type="button" onClick={() => this.checkAnswer(answer)} className="answer-option" key={answer}>
+                        <img className="flag" src={answer} alt="flag"></img>
                     </button>
                 )
             }
@@ -82,7 +87,7 @@ class AnswerOptions extends React.Component {
         let nextButton = null;
         if (this.state.isCorrect !== null) {
             nextButton = (
-                <button onClick={() => {this.props.generateNewQuestion(this.state.isCorrect)}}>Next</button>
+                <button onClick={() => { this.props.generateNewQuestion(this.state.isCorrect) }}>Next</button>
             );
         }
 
