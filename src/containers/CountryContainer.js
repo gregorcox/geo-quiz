@@ -6,8 +6,6 @@ class CountryContainer extends React.Component {
     super(props);
     this.state = {
       countries: [],
-      random: {},
-      categories: this.props.categories,
       loading: true
     };
   }
@@ -37,7 +35,7 @@ class CountryContainer extends React.Component {
       <>
         <button onClick={() => {window.location.reload()}}>Start over</button>
 
-        <Question countries={this.state.countries} categories={this.props.categories} />
+        <Question countries={this.state.countries} categories={this.props.categories} number={this.props.number}/>
       </>
     )
   }

@@ -44,7 +44,7 @@ body {
 
 .answer-options button:disabled {
   cursor: not-allowed;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .answer-options .text-button {
@@ -177,5 +177,17 @@ body {
 .category-options input {
   margin-top: 20px;
   margin-left: 20px;
+}
+
+.quiz-end-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=App.css.map */

@@ -3,29 +3,47 @@ import React from 'react';
 import AnswerOptions from "./AnswerOptions";
 
 import { getRandomItem } from "../utils";
+import QuizEnd from './QuizEnd';
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      newQuestionGenerated: false
+      newQuestionGenerated: false,
+      questionsAnswered: 0,
+      correctAnswers: 0
     }
 
     this.generateNewQuestion = this.generateNewQuestion.bind(this);
   }
 
-  generateNewQuestion() {
+  generateNewQuestion(prevResult) {
+    let { questionsAnswered, correctAnswers } = this.state;
+    questionsAnswered++;
+
+    // Add one to the score if the answer was correct
+    if (prevResult) correctAnswers++;
+
     this.setState({
-      newQuestionGenerated: true
+      newQuestionGenerated: true,
+      questionsAnswered,
+      correctAnswers
     });
   }
 
   render(){
-    const { categories, countries } = this.props;
+    const { categories, countries, number } = this.props;
 
     const selectedCountry = getRandomItem(countries);
     const category = getRandomItem(categories);
+
+    // Check if the user has answered every question
+    if (this.state.questionsAnswered === number) {
+      return (
+        <QuizEnd score={this.state.correctAnswers} questionsAnswered={this.state.questionsAnswered} />
+      )
+    }
 
     return(
       <div className="question-container">
