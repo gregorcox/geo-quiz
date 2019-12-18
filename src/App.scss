@@ -1,5 +1,20 @@
+$mobile: 840px;
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
 body {
   background: #f4f5f7;
+}
+
+button {
+  background: transparent;
+  outline: none;
+
+  cursor: pointer;
 }
 
 .question-container {
@@ -7,13 +22,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .title {
+    text-align: center;
+  }
 }
 
 .flag {
   height: auto;
   width: 200px;
 
-  margin: 0px 25px;
+  margin: 25px;
 
   border: 1px solid black;
 }
@@ -23,11 +42,7 @@ body {
   flex-direction: row;
 
   button {
-    outline: none;
     border: none;
-    background: transparent;
-
-    cursor: pointer;
 
     &:disabled {
       cursor: not-allowed;
@@ -38,7 +53,7 @@ body {
   .text-button {
     height: 50px;
     min-width: 100px;
-    margin: 0 25px;
+    margin: 25px;
 
     border: 1px solid black;
     border-radius: 25px;
@@ -48,6 +63,10 @@ body {
     &:hover {
       border-width: 2px;
     }
+  }
+
+  @include mobile {
+    flex-direction: column;
   }
 }
 
@@ -121,7 +140,6 @@ body {
     border: 1px solid black;
     border-radius: 25px;
 
-    cursor: pointer;
     transition: 0.2s ease-in-out;
 
     &:hover {
@@ -148,4 +166,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background-color: white;
+  border: 1px solid black;
+  margin: 25vh 25vw;
+}
+
+.restart-button {
+  margin: 10px;
+  padding: 15px 25px;
+
+  border: 1px solid black;
+  border-radius: 25px;
 }

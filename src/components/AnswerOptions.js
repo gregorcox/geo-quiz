@@ -87,7 +87,7 @@ class AnswerOptions extends React.Component {
         let nextButton = null;
         if (this.state.isCorrect !== null) {
             nextButton = (
-                <button onClick={() => { this.props.generateNewQuestion(this.state.isCorrect) }}>Next</button>
+                <button className="restart-button" onClick={() => { this.props.generateNewQuestion(this.state.isCorrect) }}>Next</button>
             );
         }
 

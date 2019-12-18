@@ -33,7 +33,7 @@ class CountryContainer extends React.Component {
 
     return(
       <>
-        <button onClick={() => {window.location.reload()}}>Start over</button>
+        <button className="restart-button" onClick={() => {window.location.reload()}}>Start over</button>
 
         <Question countries={this.state.countries} categories={this.props.categories} number={this.props.number}/>
       </>
