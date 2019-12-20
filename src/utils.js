@@ -7,7 +7,7 @@ export const getRandomItem = (array) => {
 
 // Shuffle an array
 export const shuffle = (array) => {
-    array.sort(() => Math.random() - 0.5);
+    return array.sort(() => Math.random() - 0.5);
 }
 
 // Check if an array has duplicate items

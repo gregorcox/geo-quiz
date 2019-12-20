@@ -1,4 +1,4 @@
-import { hasEmptyValue, hasDuplicates } from "../utils";
+import { hasEmptyValue, hasDuplicates, shuffle } from "../utils";
 
 // hasEmptyValue() Tests
 test('array with empty value returns true', () => {
@@ -18,3 +18,13 @@ test('array with no duplicates returns false', () => {
   expect(hasDuplicates([1, 2, 3, 4, 5])).toBe(false);
 });
 
+// shuffle() Tests
+test('shuffled array keeps the same length', () => {
+  const shuffledArray = shuffle([1, 2, 3]);
+  expect(shuffledArray).toHaveLength(3)
+});
+
+test('shuffled array keeps the same items', () => {
+  const shuffledArray = shuffle(['Alice', 'Bob', 'Eve']);
+  expect(shuffledArray).toEqual(expect.arrayContaining(['Eve', 'Alice', 'Bob']));
+});
