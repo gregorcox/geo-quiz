@@ -1,9 +1,9 @@
 import React from 'react';
 
 import AnswerOptions from "./AnswerOptions";
+import QuizEnd from './QuizEnd';
 
 import { getRandomItem } from "../utils";
-import QuizEnd from './QuizEnd';
 
 class Question extends React.Component {
   constructor(props) {

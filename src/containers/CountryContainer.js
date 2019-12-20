@@ -11,6 +11,7 @@ class CountryContainer extends React.Component {
   }
 
   componentDidMount(){
+    // Set the API url depending on the region the user has selected
     let url = 'https://restcountries.eu/rest/v2/all';
     if (this.props.region !== "all") {
       url = `https://restcountries.eu/rest/v2/region/${this.props.region}`

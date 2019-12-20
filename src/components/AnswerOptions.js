@@ -47,6 +47,7 @@ class AnswerOptions extends React.Component {
             this.generateAnswers();
         }
 
+        // Randomise the order in which the answers apear
         shuffle(this.answersArray);
     }
 
@@ -62,7 +63,9 @@ class AnswerOptions extends React.Component {
         const answerButtons = this.answersArray.map((answer) => {
             if (this.category !== "flag") {
                 return (
-                    <button disabled={this.state.buttonsDisabled} className="answer-option text-button" key={answer} onClick={() => this.checkAnswer(answer)}>{answer.toLocaleString()}</button>
+                    <button disabled={this.state.buttonsDisabled} className="answer-option text-button" key={answer} onClick={() => this.checkAnswer(answer)}>
+                        {answer.toLocaleString()}
+                    </button>
                 )
             } else {
                 return (
