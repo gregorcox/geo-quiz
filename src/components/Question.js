@@ -35,8 +35,13 @@ class Question extends React.Component {
   render(){
     const { categories, countries, number } = this.props;
 
-    const selectedCountry = getRandomItem(countries);
-    const category = getRandomItem(categories);
+    let selectedCountry = getRandomItem(countries);
+    let category = getRandomItem(categories);
+
+    if (!selectedCountry[category]) {
+      selectedCountry = getRandomItem(countries);
+      category = getRandomItem(categories);
+    };
 
     // Check if the user has answered every question
     if (this.state.questionsAnswered === number) {
