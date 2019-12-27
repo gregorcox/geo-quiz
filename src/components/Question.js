@@ -52,6 +52,7 @@ class Question extends React.Component {
 
     return(
       <div className="question-container">
+        <p>{this.state.questionsAnswered + 1}/{number}</p>
         <h1 className="title">What is the {category} of {selectedCountry.name}?</h1>
         <AnswerOptions
           correctCountry={selectedCountry}
