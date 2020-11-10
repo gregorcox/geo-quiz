@@ -9,7 +9,7 @@ Technologies used:
 - React Hooks
 - SCSS
 
-To see the code in the browser - [jovial-shockley-ee3800.netlify.com/](jovial-shockley-ee3800.netlify.com/)
+See the code in the browser [here!](https://jovial-shockley-ee3800.netlify.app/)
 
 ## Available Scripts
 
