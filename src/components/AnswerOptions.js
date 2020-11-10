@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
     getRandomItem,
@@ -7,104 +7,88 @@ import {
     hasEmptyValue
 } from "../utils";
 
-class AnswerOptions extends React.Component {
-    constructor(props) {
-        super(props);
+const AnswerOptions = (props) => {
+    const [isCorrect, toggleIsCorrect] = useState(null);
+    const [buttonsDisabled, toggleButton] = useState(false);
+    const [answers, setAnswersArray] = useState([])
 
-        this.state = {
-            isCorrect: null,
-            buttonsDisabled: false
-        };
+    useEffect(() => {
+        generateAnswers();
 
-        this.generateAnswers();
-    }
+        toggleIsCorrect(null);
+        toggleButton(false);
 
-    componentDidUpdate(prevProps) {
-        if (prevProps !== this.props) {
-            this.generateAnswers();
+        // Hide the result from the previous question
+        document.getElementsByClassName('result')[0].style.display = "none";
+    }, [props]);
 
-            this.setState({
-                isCorrect: null,
-                buttonsDisabled: false
-            });
+    const generateAnswers = () => {
+        const { correctCountry, category, countries } = props;
 
-            document.getElementsByClassName('result')[0].style.display = "none";
-        }
-    }
+        let answersArray = [];
+        answersArray[0] = getRandomItem(countries)[category];
+        answersArray[1] = getRandomItem(countries)[category];
+        answersArray[2] = correctCountry[category];
 
-    generateAnswers() {
-        this.correctCountry = this.props.correctCountry;
-        this.category = this.props.category;
-        this.countries = this.props.countries;
-
-        this.answersArray = [];
-        this.answersArray[0] = getRandomItem(this.countries)[this.category];
-        this.answersArray[1] = getRandomItem(this.countries)[this.category];
-        this.answersArray[2] = this.correctCountry[this.category];
+        setAnswersArray(answersArray);
 
         // Regenerate the array if there are duplicates or it contains an empty value
-        if (hasDuplicates(this.answersArray) || hasEmptyValue(this.answersArray)) {
-            this.generateAnswers();
+        if (hasDuplicates(answersArray) || hasEmptyValue(answersArray)) {
+            generateAnswers();
         }
 
         // Randomise the order in which the answers apear
-        shuffle(this.answersArray);
+        shuffle(answersArray);
     }
 
-    checkAnswer = (answer) => {
+    const checkAnswer = (answer) => {
         document.getElementsByClassName('result')[0].style.display = "flex";
-        this.setState({
-            isCorrect: answer === this.correctCountry[this.category],
-            buttonsDisabled: true
-        });
+        toggleButton(true);
+        toggleIsCorrect(answer === props.correctCountry[props.category])
     };
 
-    render() {
-        const answerButtons = this.answersArray.map((answer) => {
-            if (this.category !== "flag") {
-                return (
-                    <button disabled={this.state.buttonsDisabled} className="answer-option text-button" key={answer} onClick={() => this.checkAnswer(answer)}>
-                        {answer.toLocaleString()}
-                    </button>
-                )
-            } else {
-                return (
-                    <button disabled={this.state.buttonsDisabled} type="button" onClick={() => this.checkAnswer(answer)} className="answer-option" key={answer}>
-                        <img className="flag" src={answer} alt="flag"></img>
-                    </button>
-                )
-            }
-        });
-
-        let result = null;
-        if (this.state.isCorrect) {
-            result = (
-                <div className="result result--correct">Correct!</div>
-            );
+    const answerButtons = answers.map((answer) => {
+        if (props.category !== "flag") {
+            return (
+                <button disabled={buttonsDisabled} className="answer-option text-button" key={answer} onClick={() => checkAnswer(answer)}>
+                    {answer.toLocaleString()}
+                </button>
+            )
         } else {
-            result = (
-                <div className="result result--incorrect">Wrong!</div>
+            return (
+                <button disabled={buttonsDisabled} type="button" onClick={() => checkAnswer(answer)} className="answer-option" key={answer}>
+                    <img className="flag" src={answer} alt="flag"></img>
+                </button>
             )
         }
+    });
 
-        let nextButton = null;
-        if (this.state.isCorrect !== null) {
-            nextButton = (
-                <button className="restart-button" onClick={() => { this.props.generateNewQuestion(this.state.isCorrect) }}>Next</button>
-            );
-        }
-
-        return (
-            <>
-                <div className="answer-options">
-                    {answerButtons}
-                </div>
-
-                {result}
-                {nextButton}
-            </>
-        )
+    let result = null;
+    if (isCorrect) {
+        result = <div className="result result--correct">Correct!</div>
+    } else {
+        result = <div className="result result--incorrect">Wrong!</div>
     }
+
+    let nextButton = null;
+    if (isCorrect !== null) {
+        nextButton = (
+            <button className="restart-button" onClick={() => { props.generateNewQuestion(isCorrect) }}>
+                Next
+            </button>
+        );
+    }
+
+    return (
+        <>
+            <div className="answer-options">
+                {answerButtons}
+            </div>
+
+            {result}
+            {nextButton}
+        </>
+    )
 };
 
 export default AnswerOptions;
