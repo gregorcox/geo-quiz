@@ -8,6 +8,7 @@ Technologies used:
 - React
 - React Hooks
 - SCSS
+- Jest
 
 See the code in the browser [here!](https://jovial-shockley-ee3800.netlify.app/)
 
