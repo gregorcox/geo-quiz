@@ -1,45 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Question from "../components/Question";
 
-class CountryContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      countries: [],
-      loading: true
-    };
-  }
+const CountryContainer = (props) => {
+  const [countries, setCounties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  componentDidMount(){
+  useEffect(() => {
     // Set the API url depending on the region the user has selected
     let url = 'https://restcountries.eu/rest/v2/all';
-    if (this.props.region !== "all") {
-      url = `https://restcountries.eu/rest/v2/region/${this.props.region}`
+    if (props.region !== "all") {
+      url = `https://restcountries.eu/rest/v2/region/${props.region}`
     }
 
     fetch(url)
       .then((res) => res.json())
-      .then((countries) => this.setState({
-          countries,
-          loading: false
-        }));
+      .then((countries) => {
+        setCounties(countries);
+        setLoading(false);
+      });
+  }, [props.region]);
+
+  if (loading) {
+    return <div className ="loader"/>
   }
 
-  render(){
-    if (this.state.loading) {
-        return (
-            <div className ="loader"/>
-        );
-    }
+  return (
+    <>
+      <button className="restart-button" onClick={() => { window.location.reload() }}>Start over</button>
 
-    return(
-      <>
-        <button className="restart-button" onClick={() => {window.location.reload()}}>Start over</button>
-
-        <Question countries={this.state.countries} categories={this.props.categories} number={this.props.number}/>
-      </>
-    )
-  }
+      <Question countries={countries} categories={props.categories} number={props.number} />
+    </>
+  );
 }
 
 export default CountryContainer;
