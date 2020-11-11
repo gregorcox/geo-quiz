@@ -7,6 +7,7 @@ React.js web app utilising a REST API for country data to allow users to test th
 Technologies used:
 - React
 - React Hooks
+- TypeScript
 - SCSS
 - Jest
 
