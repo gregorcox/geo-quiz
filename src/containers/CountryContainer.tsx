@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Question from "../components/Question";
 
-const CountryContainer = (props) => {
+interface IProps {
+  region: string
+  categories: string[]
+  number: number
+}
+
+const CountryContainer = ({ region, categories, number } : IProps) => {
   const [countries, setCounties] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Set the API url depending on the region the user has selected
-    let url = 'https://restcountries.eu/rest/v2/all';
-    if (props.region !== "all") {
-      url = `https://restcountries.eu/rest/v2/region/${props.region}`
+    let url : string = 'https://restcountries.eu/rest/v2/all';
+    if (region !== "all") {
+      url = `https://restcountries.eu/rest/v2/region/${region}`
     }
 
     fetch(url)
@@ -18,7 +24,7 @@ const CountryContainer = (props) => {
         setCounties(countries);
         setLoading(false);
       });
-  }, [props.region]);
+  }, [region]);
 
   if (loading) {
     return <div className ="loader"/>
@@ -28,7 +34,7 @@ const CountryContainer = (props) => {
     <>
       <button className="restart-button" onClick={() => { window.location.reload() }}>Start over</button>
 
-      <Question countries={countries} categories={props.categories} number={props.number} />
+      <Question countries={countries} categories={categories} number={number} />
     </>
   );
 }

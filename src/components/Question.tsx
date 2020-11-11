@@ -4,11 +4,17 @@ import AnswerOptions from "./AnswerOptions";
 import QuizEnd from './QuizEnd';
 import { getRandomItem } from "../utils";
 
-const Question = (props) => {
+interface IProps {
+  categories: string[]
+  countries: string[]
+  number: number
+}
+
+const Question = ({ categories, countries, number } : IProps) => {
   let [questionsAnswered, addQuestionAnswered] = useState(0);
   let [correctAnswers, addCorrectAnswer] = useState(0);
 
-  const generateNewQuestion = (prevResult) => {
+  const generateNewQuestion = (prevResult: Boolean) => {
     questionsAnswered++;
 
     // Add one to the score if the answer was correct
@@ -18,10 +24,8 @@ const Question = (props) => {
     addCorrectAnswer(correctAnswers);
   }
 
-  const { categories, countries, number } = props;
-
   let selectedCountry = getRandomItem(countries);
-  let category = getRandomItem(categories);
+  let category : string = getRandomItem(categories);
 
   if (!selectedCountry[category]) {
     selectedCountry = getRandomItem(countries);
