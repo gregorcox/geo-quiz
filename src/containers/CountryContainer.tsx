@@ -13,9 +13,9 @@ const CountryContainer = ({ region, categories, number } : IProps) => {
 
   useEffect(() => {
     // Set the API url depending on the region the user has selected
-    let url : string = 'https://restcountries.eu/rest/v2/all';
+    let url : string = 'https://restcountries.com/v2/all';
     if (region !== "all") {
-      url = `https://restcountries.eu/rest/v2/region/${region}`
+      url = `https://restcountries.com/v2/region/${region}`;
     }
 
     fetch(url)
