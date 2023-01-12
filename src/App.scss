@@ -30,11 +30,8 @@ button {
 
 .flag {
   height: auto;
-  width: 200px;
-
-  margin: 25px;
-
-  border: 1px solid black;
+  font-size: 100px;
+  margin: 0;
 }
 
 .answer-options {
@@ -48,6 +45,10 @@ button {
       cursor: not-allowed;
       opacity: 0.8;
     }
+  }
+
+  .answer-flag {
+    margin: 0 25px;
   }
 
   .text-button {

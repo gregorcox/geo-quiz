@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
 import CountryContainer from "./CountryContainer";
 
 const Landing = () => {
-  const [region, setRegion] = useState('all');
-  const [categories, setCategories] = useState(["capital", "population", "flag"]);
+  const [region, setRegion] = useState("all");
+  const [categories, setCategories] = useState([
+    "capital",
+    "population",
+    "flag",
+  ]);
   const [loadQuiz, setLoadQuiz] = useState(false);
   const [numberOfQuestions, setNumber] = useState(5);
   const [error, setError] = useState(false);
@@ -12,17 +15,17 @@ const Landing = () => {
   const handleChange = ({ target }) => {
     if (target.name === "region") setRegion(target.value);
     if (target.name === "numberOfQuestions") setNumber(target.value);
-  }
+  };
 
-  const handleCategoryChange = evt => {
+  const handleCategoryChange = (evt) => {
     const { name } = evt.target;
 
     if (categories.includes(name)) {
-      setCategories(categories.filter(category => category !== name));
+      setCategories(categories.filter((category) => category !== name));
     } else {
       setCategories([...categories, name]);
     }
-  }
+  };
 
   const handleClick = () => {
     if (categories.length) {
@@ -30,11 +33,17 @@ const Landing = () => {
     } else {
       setError(true);
     }
-  }
+  };
 
   // Load quiz if the user clicks the continue button and there are no errors
   if (loadQuiz) {
-    return <CountryContainer region={region} categories={categories} number={parseInt(numberOfQuestions, 10)} />
+    return (
+      <CountryContainer
+        region={region}
+        categories={categories}
+        number={parseInt(numberOfQuestions, 10)}
+      />
+    );
   }
 
   const regionSelector = (
@@ -55,23 +64,33 @@ const Landing = () => {
     <div className="category-options">
       <label>Select categories:</label>
       <div>
-        <input type="checkbox" name="capital" value="capital"
+        <input
+          type="checkbox"
+          name="capital"
+          value="capital"
           checked={categories.includes("capital")}
-          onChange={handleCategoryChange} />
+          onChange={handleCategoryChange}
+        />
         Capital cities
-
-        <input type="checkbox" name="flag" value="flag"
+        <input
+          type="checkbox"
+          name="flag"
+          value="flag"
           checked={categories.includes("flag")}
-          onChange={handleCategoryChange} />
+          onChange={handleCategoryChange}
+        />
         Flags
-
-        <input type="checkbox" name="population" value="population"
+        <input
+          type="checkbox"
+          name="population"
+          value="population"
           checked={categories.includes("population")}
-          onChange={handleCategoryChange} />
+          onChange={handleCategoryChange}
+        />
         Populations
       </div>
     </div>
-  )
+  );
 
   const questions = (
     <>
@@ -86,7 +105,6 @@ const Landing = () => {
 
   return (
     <div className="quiz-options">
-
       {regionSelector}
 
       {categorySelector}
@@ -97,7 +115,7 @@ const Landing = () => {
 
       {error ? <p>Please select at least 1 category</p> : null}
     </div>
-  )
-}
+  );
+};
 
 export default Landing;
