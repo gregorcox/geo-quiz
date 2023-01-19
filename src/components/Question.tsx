@@ -40,12 +40,12 @@ const Question = ({ categories, countries, number }: IProps) => {
 
   return (
     <div className="question-container">
-      <p>
+      <span className="score-count">
         {questionsAnswered + 1}/{number}
-      </p>
-      <h1 className="title">
+      </span>
+      <h3 className="title">
         What is the {category} of {selectedCountry.name.common}?
-      </h1>
+      </h3>
 
       <AnswerOptions
         correctCountry={selectedCountry}

@@ -19,7 +19,7 @@ const QuizEnd = ({
       <p>
         Your score is {score} / {questionsAnswered}
       </p>
-      {message}
+      <p>{message}</p>
     </div>
   );
 };

@@ -11,58 +11,86 @@ body {
 }
 
 button {
-  background: transparent;
-  outline: none;
-
   cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  outline: none;
 }
 
 .question-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  position: relative;
 
   .title {
+    background-color: white;
+    border: 2px solid #d9e1e8;
+    border-radius: 8px;
+    min-width: 50vw;
+    padding: 36px;
     text-align: center;
+  }
+
+  .score-count {
+    background: #3498db;
+    border-radius: 16px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+    position: absolute;
+    top: 6px;
   }
 }
 
 .flag {
-  height: auto;
   font-size: 100px;
+  height: auto;
   margin: 0;
 }
 
 .answer-options {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 
   button {
-    border: none;
-
     &:disabled {
-      cursor: not-allowed;
+      cursor: default;
       opacity: 0.8;
+
+      &:hover {
+        background-color: unset;
+        border-color: #d9e1e8;
+      }
     }
   }
 
   .answer-flag {
+    flex: 40%;
     margin: 0 25px;
   }
 
   .text-button {
+    background-color: white;
+    border: 2px solid #d9e1e8;
+    border-radius: 8px;
+    flex: 40%;
     height: 50px;
-    min-width: 100px;
     margin: 25px;
-
-    border: 1px solid black;
-    border-radius: 25px;
-
-    transition: 0.2s ease-in-out;
+    min-width: 100px;
 
     &:hover {
-      border-width: 2px;
+      background-color: rgba($color: #3498db, $alpha: 0.1);
+      border-color: #3498db;
+    }
+
+    @include mobile {
+      flex: auto;
+      width: 200px;
     }
   }
 
@@ -72,16 +100,15 @@ button {
 }
 
 .loader {
+  animation: spin 2s linear infinite;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  height: 60px;
+  left: 50%;
   position: absolute;
   top: 50%;
-  left: 50%;
-
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
   width: 60px;
-  height: 60px;
-  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
@@ -94,17 +121,14 @@ button {
 }
 
 .result {
+  align-items: center;
+  border-radius: 8px;
+  color: white;
   display: none;
   justify-content: center;
-  align-items: center;
-  height: 20px;
-  width: 100px;
-
-  padding: 20px;
   margin: 20px;
-
-  border: 1px solid black;
-  color: white;
+  padding: 12px 20px;
+  width: 100px;
 
   &--correct {
     background-color: green;
@@ -116,70 +140,62 @@ button {
 }
 
 .quiz-options {
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
-
+  justify-content: center;
   margin-top: 50px;
 
+  label {
+    font-weight: 500;
+  }
+
   select {
-    height: 50px;
-    width: 100px;
-
-    margin: 20px;
-
+    border-radius: 8px;
     font-size: 16px;
+    height: 50px;
+    margin: 20px;
+    width: 100px;
   }
 
   button {
-    height: 50px;
-    width: 100px;
-
+    background-color: #2b90d9;
+    color: white;
+    padding: 8px 16px;
     margin: 20px;
-
-    border: 1px solid black;
-    border-radius: 25px;
-
+    border-radius: 16px;
     transition: 0.2s ease-in-out;
-
-    &:hover {
-      background-color: green;
-      color: white;
-    }
   }
 }
 
 .category-options {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
   margin-bottom: 20px;
 
   input {
-    margin-top: 20px;
     margin-left: 20px;
+    margin-top: 20px;
   }
 }
 
 .quiz-end-container {
+  align-items: center;
+  background-color: white;
+  border: 2px solid #3498db;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-
   margin: 25vh 25vw;
   padding: 25px;
-
-  background-color: white;
-  border: 1px solid black;
 }
 
 .restart-button {
+  background-color: #2b90d9;
+  border-radius: 16px;
+  color: white;
   margin: 10px;
-  padding: 15px 25px;
-
-  border: 1px solid black;
-  border-radius: 25px;
+  padding: 8px 16px;
 }

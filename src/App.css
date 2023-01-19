@@ -3,51 +3,80 @@ body {
 }
 
 button {
-  background: transparent;
-  outline: none;
   cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  outline: none;
 }
 
 .question-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  position: relative;
 }
 .question-container .title {
+  background-color: white;
+  border: 2px solid #d9e1e8;
+  border-radius: 8px;
+  min-width: 50vw;
+  padding: 36px;
   text-align: center;
+}
+.question-container .score-count {
+  background: #3498db;
+  border-radius: 16px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 16px;
+  position: absolute;
+  top: 6px;
 }
 
 .flag {
-  height: auto;
   font-size: 100px;
+  height: auto;
   margin: 0;
 }
 
 .answer-options {
   display: flex;
   flex-direction: row;
-}
-.answer-options button {
-  border: none;
+  flex-wrap: wrap;
 }
 .answer-options button:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.8;
 }
+.answer-options button:disabled:hover {
+  background-color: unset;
+  border-color: #d9e1e8;
+}
 .answer-options .answer-flag {
+  flex: 40%;
   margin: 0 25px;
 }
 .answer-options .text-button {
+  background-color: white;
+  border: 2px solid #d9e1e8;
+  border-radius: 8px;
+  flex: 40%;
   height: 50px;
-  min-width: 100px;
   margin: 25px;
-  border: 1px solid black;
-  border-radius: 25px;
-  transition: 0.2s ease-in-out;
+  min-width: 100px;
 }
 .answer-options .text-button:hover {
-  border-width: 2px;
+  background-color: rgba(52, 152, 219, 0.1);
+  border-color: #3498db;
+}
+@media (max-width: 840px) {
+  .answer-options .text-button {
+    flex: auto;
+    width: 200px;
+  }
 }
 @media (max-width: 840px) {
   .answer-options {
@@ -56,16 +85,16 @@ button {
 }
 
 .loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
   -webkit-animation: spin 2s linear infinite;
           animation: spin 2s linear infinite;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  height: 60px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  width: 60px;
 }
 
 @-webkit-keyframes spin {
@@ -86,15 +115,14 @@ button {
   }
 }
 .result {
+  align-items: center;
+  border-radius: 8px;
+  color: white;
   display: none;
   justify-content: center;
-  align-items: center;
-  height: 20px;
-  width: 100px;
-  padding: 20px;
   margin: 20px;
-  border: 1px solid black;
-  color: white;
+  padding: 12px 20px;
+  width: 100px;
 }
 .result--correct {
   background-color: green;
@@ -104,56 +132,58 @@ button {
 }
 
 .quiz-options {
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-top: 50px;
 }
+.quiz-options label {
+  font-weight: 500;
+}
 .quiz-options select {
-  height: 50px;
-  width: 100px;
-  margin: 20px;
+  border-radius: 8px;
   font-size: 16px;
+  height: 50px;
+  margin: 20px;
+  width: 100px;
 }
 .quiz-options button {
-  height: 50px;
-  width: 100px;
-  margin: 20px;
-  border: 1px solid black;
-  border-radius: 25px;
-  transition: 0.2s ease-in-out;
-}
-.quiz-options button:hover {
-  background-color: green;
+  background-color: #2b90d9;
   color: white;
+  padding: 8px 16px;
+  margin: 20px;
+  border-radius: 16px;
+  transition: 0.2s ease-in-out;
 }
 
 .category-options {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-bottom: 20px;
 }
 .category-options input {
-  margin-top: 20px;
   margin-left: 20px;
+  margin-top: 20px;
 }
 
 .quiz-end-container {
+  align-items: center;
+  background-color: white;
+  border: 2px solid #3498db;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   margin: 25vh 25vw;
   padding: 25px;
-  background-color: white;
-  border: 1px solid black;
 }
 
 .restart-button {
+  background-color: #2b90d9;
+  border-radius: 16px;
+  color: white;
   margin: 10px;
-  padding: 15px 25px;
-  border: 1px solid black;
-  border-radius: 25px;
+  padding: 8px 16px;
 }/*# sourceMappingURL=App.css.map */

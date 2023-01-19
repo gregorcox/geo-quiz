@@ -15,7 +15,8 @@ const AnswerOptions = ({
     let answersArray = [];
     answersArray[0] = getRandomItem(countries)[category];
     answersArray[1] = getRandomItem(countries)[category];
-    answersArray[2] = correctCountry[category];
+    answersArray[2] = getRandomItem(countries)[category];
+    answersArray[3] = correctCountry[category];
 
     setAnswersArray(answersArray);
 
