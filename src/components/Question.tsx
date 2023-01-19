@@ -48,8 +48,8 @@ const Question = ({ categories, countries, number }: IProps) => {
       </h3>
 
       <AnswerOptions
-        correctCountry={selectedCountry}
         category={category}
+        correctCountry={selectedCountry}
         countries={countries}
         generateNewQuestion={generateNewQuestion}
       />

@@ -2,8 +2,8 @@ import React, { useCallback, useState, useEffect } from "react";
 import { getRandomItem, shuffle, hasDuplicates, hasEmptyValue } from "../utils";
 
 const AnswerOptions = ({
-  correctCountry,
   category,
+  correctCountry,
   countries,
   generateNewQuestion,
 }) => {
@@ -45,60 +45,41 @@ const AnswerOptions = ({
     toggleIsCorrect(answer === correctCountry[category]);
   };
 
-  const answerButtons = answers.map((answer) => {
-    if (category !== "flag") {
-      return (
-        <button
-          disabled={buttonsDisabled}
-          className="answer-option text-button"
-          key={answer}
-          onClick={() => checkAnswer(answer)}
-        >
-          {answer.toLocaleString()}
-        </button>
-      );
-    } else {
-      return (
-        <button
-          disabled={buttonsDisabled}
-          type="button"
-          onClick={() => checkAnswer(answer)}
-          className="answer-option answer-flag"
-          key={answer}
-        >
-          <span className="flag">{answer}</span>
-        </button>
-      );
-    }
-  });
-
-  let result = null;
-  if (isCorrect) {
-    result = <div className="result result--correct">Correct!</div>;
-  } else {
-    result = <div className="result result--incorrect">Wrong!</div>;
-  }
-
-  let nextButton = null;
-  if (isCorrect !== null) {
-    nextButton = (
-      <button
-        className="restart-button"
-        onClick={() => {
-          generateNewQuestion(isCorrect);
-        }}
-      >
-        Next
-      </button>
-    );
-  }
+  const answerButtons = answers.map((answer) => (
+    <button
+      className={
+        category === "flag"
+          ? "answer-option answer-flag"
+          : "answer-option text-button"
+      }
+      disabled={buttonsDisabled}
+      key={answer}
+      onClick={() => checkAnswer(answer)}
+    >
+      {answer.toLocaleString()}
+    </button>
+  ));
 
   return (
     <>
       <div className="answer-options">{answerButtons}</div>
 
-      {result}
-      {nextButton}
+      {isCorrect ? (
+        <div className="result result--correct">Correct!</div>
+      ) : (
+        <div className="result result--incorrect">Wrong!</div>
+      )}
+
+      {isCorrect !== null && (
+        <button
+          className="restart-button"
+          onClick={() => {
+            generateNewQuestion(isCorrect);
+          }}
+        >
+          Next
+        </button>
+      )}
     </>
   );
 };

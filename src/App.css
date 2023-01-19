@@ -36,12 +36,6 @@ button {
   top: 6px;
 }
 
-.flag {
-  font-size: 100px;
-  height: auto;
-  margin: 0;
-}
-
 .answer-options {
   display: flex;
   flex-direction: row;
@@ -57,6 +51,7 @@ button {
 }
 .answer-options .answer-flag {
   flex: 40%;
+  font-size: 100px;
   margin: 0 25px;
 }
 .answer-options .text-button {
