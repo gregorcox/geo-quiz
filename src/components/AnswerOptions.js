@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { getRandomItem, shuffle, hasDuplicates, hasEmptyValue } from "../utils";
 
 const AnswerOptions = ({
@@ -11,17 +11,7 @@ const AnswerOptions = ({
   const [buttonsDisabled, toggleButton] = useState(false);
   const [answers, setAnswersArray] = useState([]);
 
-  useEffect(() => {
-    generateAnswers();
-
-    toggleIsCorrect(null);
-    toggleButton(false);
-
-    // Hide the result from the previous question
-    document.getElementsByClassName("result")[0].style.display = "none";
-  }, [correctCountry, category, countries]);
-
-  const generateAnswers = () => {
+  const generateAnswers = useCallback(() => {
     let answersArray = [];
     answersArray[0] = getRandomItem(countries)[category];
     answersArray[1] = getRandomItem(countries)[category];
@@ -36,7 +26,17 @@ const AnswerOptions = ({
 
     // Randomise the order in which the answers apear
     shuffle(answersArray);
-  };
+  }, [category, correctCountry, countries]);
+
+  useEffect(() => {
+    generateAnswers();
+
+    toggleIsCorrect(null);
+    toggleButton(false);
+
+    // Hide the result from the previous question
+    document.getElementsByClassName("result")[0].style.display = "none";
+  }, [correctCountry, category, countries, generateAnswers]);
 
   const checkAnswer = (answer) => {
     document.getElementsByClassName("result")[0].style.display = "flex";
