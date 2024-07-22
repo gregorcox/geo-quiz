@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Question from "../components/Question";
 
 interface IProps {
-  region: string;
-  categories: string[];
-  number: number;
+  region: string
+  categories: string[]
+  number: number
 }
 
-const CountryContainer = ({ region, categories, number }: IProps) => {
+const CountryContainer = ({ region, categories, number } : IProps) => {
   const [countries, setCounties] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Set the API url depending on the region the user has selected
-    let url: string = "https://restcountries.eu/rest/v2/all";
+    let url : string = 'https://restcountries.eu/rest/v2/all';
     if (region !== "all") {
-      url = `https://restcountries.eu/rest/v2/region/${region}`;
+      url = `https://restcountries.eu/rest/v2/region/${region}`
     }
 
     fetch(url)
@@ -27,23 +27,17 @@ const CountryContainer = ({ region, categories, number }: IProps) => {
   }, [region]);
 
   if (loading) {
-    return <div className="loader" />;
+    return <div className ="loader"/>
   }
 
   return (
     <>
-      <button
-        className="restart-button"
-        onClick={() => {
-          window.location.reload();
-        }}
-      >
-        Start over
-      </button>
+      <button className="restart-button" onClick={() => { window.location.reload() }}>Start over</button>
 
       <Question countries={countries} categories={categories} number={number} />
     </>
   );
-};
+}
 
 export default CountryContainer;
+
