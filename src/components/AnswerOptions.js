@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useEffect } from "react";
-import { getRandomItem, shuffle, hasDuplicates, hasEmptyValue } from "../utils";
+import React, { useCallback, useEffect, useState } from "react";
+import { getRandomItem, hasDuplicates, hasEmptyValue, shuffle } from "../utils";
 
 const AnswerOptions = ({
   category,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { getRandomItem } from "../utils";
 import AnswerOptions from "./AnswerOptions";
 import QuizEnd from "./QuizEnd";
-import { getRandomItem } from "../utils";
 
 interface IProps {
   categories: string[];
