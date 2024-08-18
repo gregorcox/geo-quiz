@@ -13,7 +13,8 @@ const CountryContainer = ({ region, categories, number }: IProps) => {
 
   useEffect(() => {
     // Set the API url depending on the region the user has selected
-    let url: string = "https://restcountries.com/v3.1/all";
+    let url: string =
+      "https://restcountries.com/v3.1/independent?status=true&fields=languages,capital,flag,population,name";
     if (region !== "all") {
       url = `https://restcountries.com/v3.1/region/${region}`;
     }
