@@ -1,4 +1,6 @@
 import React from "react";
+import Lottie from "react-lottie";
+import * as animationData from "../map.json";
 
 const QuizEnd = ({
   score,
@@ -14,12 +16,26 @@ const QuizEnd = ({
   if (scorePercentage >= 20 && scorePercentage < 70) message = "Not too bad!";
   if (scorePercentage > 70) message = "Well done, great score!";
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   return (
-    <div className="quiz-end-container">
-      <p>
-        Your score is {score} / {questionsAnswered}
-      </p>
-      <p>{message}</p>
+    <div className="quiz-end__container">
+      <div className="quiz-end__lottie-container">
+        <Lottie options={defaultOptions} height={"100%"} width={"100%"} />
+      </div>
+      <div className="quiz-end__message">
+        <p>
+          Your score is {score}/{questionsAnswered}
+        </p>
+        <p>{message}</p>
+      </div>
     </div>
   );
 };
