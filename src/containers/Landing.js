@@ -64,7 +64,7 @@ const Landing = () => {
 
   const categoryOptions = [
     {
-      label: "Capital cities",
+      label: "Capitals",
       name: "capital",
       icon: (
         <FaCity
