@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FaCheckCircle, FaCity, FaRegFlag } from "react-icons/fa";
+import { FaPeopleGroup } from "react-icons/fa6";
 import CountryContainer from "./CountryContainer";
 
 const Landing = () => {
@@ -60,34 +62,76 @@ const Landing = () => {
     </div>
   );
 
+  const categoryOptions = [
+    {
+      label: "Capital cities",
+      name: "capital",
+      icon: (
+        <FaCity
+          size={32}
+          className="checkbox-icon"
+          color={!categories.includes("capital") ? "#ccc" : "black"}
+        />
+      ),
+    },
+    {
+      label: "Flags",
+      name: "flag",
+      icon: (
+        <FaRegFlag
+          size={32}
+          className="checkbox-icon"
+          color={!categories.includes("flag") ? "#ccc" : "black"}
+        />
+      ),
+    },
+    {
+      label: "Populations",
+      name: "population",
+      icon: (
+        <FaPeopleGroup
+          size={32}
+          className="checkbox-icon"
+          color={!categories.includes("population") ? "#ccc" : "black"}
+        />
+      ),
+    },
+  ];
+
   const categorySelector = (
     <div className="category-options">
       <label>Select categories:</label>
-      <div>
-        <input
-          type="checkbox"
-          name="capital"
-          value="capital"
-          checked={categories.includes("capital")}
-          onChange={handleCategoryChange}
-        />
-        Capital cities
-        <input
-          type="checkbox"
-          name="flag"
-          value="flag"
-          checked={categories.includes("flag")}
-          onChange={handleCategoryChange}
-        />
-        Flags
-        <input
-          type="checkbox"
-          name="population"
-          value="population"
-          checked={categories.includes("population")}
-          onChange={handleCategoryChange}
-        />
-        Populations
+      <div className="category-selector">
+        {categoryOptions.map(({ label, icon, name }) => (
+          <label className="category-card" key={name}>
+            <input
+              type="checkbox"
+              name={name}
+              value={name}
+              checked={categories.includes(name)}
+              onChange={handleCategoryChange}
+            />
+
+            {categories.includes(name) ? (
+              <div className="category-card__body category-card__body--checked">
+                <FaCheckCircle
+                  size={24}
+                  className="check-icon"
+                  fill="#3498db"
+                />
+                {icon}
+                <div className="checkbox-label checkbox-label--checked">
+                  {label}
+                </div>
+              </div>
+            ) : (
+              <div className="category-card__body">
+                {icon}
+                <div className="checkbox-label">{label}</div>
+              </div>
+            )}
+          </label>
+        ))}
       </div>
     </div>
   );
