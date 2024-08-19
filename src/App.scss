@@ -220,10 +220,14 @@ button {
   align-items: center;
   cursor: pointer;
   display: flex;
-  margin-bottom: 10px;
+  margin: 0 16px 10px 16px;
 
   input {
     display: none;
+  }
+
+  @include mobile {
+    margin: 0 10px 10px 10px;
   }
 
   &__body {
@@ -235,13 +239,11 @@ button {
     flex-direction: column;
     height: 7rem;
     justify-content: center;
-    margin: 0 16px;
     position: relative;
     width: 7rem;
 
     @include mobile {
       height: 6rem;
-      margin: 0 10px;
       width: 6rem;
     }
 

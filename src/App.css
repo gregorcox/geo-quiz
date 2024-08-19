@@ -194,10 +194,15 @@ button {
   align-items: center;
   cursor: pointer;
   display: flex;
-  margin-bottom: 10px;
+  margin: 0 16px 10px 16px;
 }
 .category-card input {
   display: none;
+}
+@media (max-width: 840px) {
+  .category-card {
+    margin: 0 10px 10px 10px;
+  }
 }
 .category-card__body {
   align-items: center;
@@ -208,14 +213,12 @@ button {
   flex-direction: column;
   height: 7rem;
   justify-content: center;
-  margin: 0 16px;
   position: relative;
   width: 7rem;
 }
 @media (max-width: 840px) {
   .category-card__body {
     height: 6rem;
-    margin: 0 10px;
     width: 6rem;
   }
 }
