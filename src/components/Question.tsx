@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { getRandomItem } from "../utils";
 import AnswerOptions from "./AnswerOptions";
-import QuizEnd from "./QuizEnd";
 import {
   getCategoryValue,
   type Country,
   type QuizCategory,
 } from "../types/quiz";
+
+const QuizEnd = lazy(() => import("./QuizEnd"));
 
 interface QuestionProps {
   categories: QuizCategory[];
@@ -27,7 +28,11 @@ const Question = ({ categories, countries, number }: QuestionProps) => {
   };
 
   if (questionsAnswered >= number) {
-    return <QuizEnd score={correctAnswers} questionsAnswered={number} />;
+    return (
+      <Suspense fallback={<div className="loader" aria-label="Loading results" />}>
+        <QuizEnd score={correctAnswers} questionsAnswered={number} />
+      </Suspense>
+    );
   }
 
   let selectedCountry = getRandomItem(countries);

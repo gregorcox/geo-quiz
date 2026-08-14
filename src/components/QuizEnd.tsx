@@ -1,5 +1,5 @@
+import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
-import animationData from "../map.json";
 
 interface QuizEndProps {
   score: number;
@@ -7,6 +7,14 @@ interface QuizEndProps {
 }
 
 const QuizEnd = ({ score, questionsAnswered }: QuizEndProps) => {
+  const [animationData, setAnimationData] = useState<object | null>(null);
+
+  useEffect(() => {
+    import("../map.json").then((module) => {
+      setAnimationData(module.default);
+    });
+  }, []);
+
   const scorePercentage = (score / questionsAnswered) * 100;
   const message =
     scorePercentage < 20
@@ -18,12 +26,14 @@ const QuizEnd = ({ score, questionsAnswered }: QuizEndProps) => {
   return (
     <div className="quiz-end__container">
       <div className="quiz-end__lottie-container">
-        <Lottie
-          animationData={animationData}
-          loop
-          autoplay
-          style={{ height: "100%", width: "100%" }}
-        />
+        {animationData ? (
+          <Lottie
+            animationData={animationData}
+            loop
+            autoplay
+            style={{ height: "100%", width: "100%" }}
+          />
+        ) : null}
       </div>
       <div className="quiz-end__message">
         <p>
