@@ -8,15 +8,12 @@ interface QuizEndProps {
 
 const QuizEnd = ({ score, questionsAnswered }: QuizEndProps) => {
   const scorePercentage = (score / questionsAnswered) * 100;
-  let message = "";
-
-  if (scorePercentage < 20) {
-    message = "Better luck next time!";
-  } else if (scorePercentage < 70) {
-    message = "Not too bad!";
-  } else {
-    message = "Well done, great score!";
-  }
+  const message =
+    scorePercentage < 20
+      ? "Better luck next time!"
+      : scorePercentage < 70
+        ? "Not too bad!"
+        : "Well done, great score!";
 
   return (
     <div className="quiz-end__container">

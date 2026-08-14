@@ -52,6 +52,7 @@ const Question = ({ categories, countries, number }: QuestionProps) => {
       </h3>
 
       <AnswerOptions
+        key={`${selectedCountry.name.common}-${category}-${questionsAnswered}`}
         category={category}
         correctCountry={selectedCountry}
         countries={countries}

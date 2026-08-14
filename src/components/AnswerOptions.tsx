@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { getRandomItem, hasDuplicates, hasEmptyValue, shuffle } from "../utils";
 import {
   formatCategoryValue,
@@ -23,40 +23,38 @@ const AnswerOptions = ({
 }: AnswerOptionsProps) => {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
-  const [answers, setAnswers] = useState<CategoryValue[]>([]);
   const [showResult, setShowResult] = useState(false);
 
   const correctAnswer = getCategoryValue(correctCountry, category);
 
-  const generateAnswers = useCallback(() => {
+  const answers = useMemo(() => {
     if (correctAnswer === undefined) {
-      return;
+      return [];
     }
 
-    let answersArray: CategoryValue[] = [];
+    const wrongAnswers = countries
+      .map((country) => getCategoryValue(country, category))
+      .filter(
+        (value): value is CategoryValue => value !== undefined && value !== ""
+      );
 
-    do {
-      const wrongAnswers = countries
-        .map((country) => getCategoryValue(country, category))
-        .filter((value): value is CategoryValue => value !== undefined && value !== "");
+    const buildAnswers = (): CategoryValue[] => {
+      while (true) {
+        const nextAnswers = [
+          getRandomItem(wrongAnswers),
+          getRandomItem(wrongAnswers),
+          getRandomItem(wrongAnswers),
+          correctAnswer,
+        ];
 
-      answersArray = [
-        getRandomItem(wrongAnswers),
-        getRandomItem(wrongAnswers),
-        getRandomItem(wrongAnswers),
-        correctAnswer,
-      ];
-    } while (hasDuplicates(answersArray) || hasEmptyValue(answersArray));
+        if (!hasDuplicates(nextAnswers) && !hasEmptyValue(nextAnswers)) {
+          return nextAnswers;
+        }
+      }
+    };
 
-    setAnswers(shuffle(answersArray));
+    return shuffle(buildAnswers());
   }, [category, correctAnswer, countries]);
-
-  useEffect(() => {
-    generateAnswers();
-    setIsCorrect(null);
-    setButtonsDisabled(false);
-    setShowResult(false);
-  }, [correctCountry, category, countries, generateAnswers]);
 
   const checkAnswer = (answer: CategoryValue) => {
     setShowResult(true);

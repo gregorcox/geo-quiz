@@ -15,9 +15,14 @@ const REGION_MAP: Record<string, string> = {
 
 const allCountries = countriesData as CountryRecord[];
 
+function withoutRegion({ region: _unused, ...country }: CountryRecord): Country {
+  void _unused;
+  return country;
+}
+
 export function getCountriesByRegion(region: string): Country[] {
   if (region === "all") {
-    return allCountries.map(({ region: _region, ...country }) => country);
+    return allCountries.map(withoutRegion);
   }
 
   const regionName = REGION_MAP[region];
@@ -28,5 +33,5 @@ export function getCountriesByRegion(region: string): Country[] {
 
   return allCountries
     .filter((country) => country.region === regionName)
-    .map(({ region: _region, ...country }) => country);
+    .map(withoutRegion);
 }
