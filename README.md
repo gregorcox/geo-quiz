@@ -2,7 +2,9 @@
 
 ![](public/geo.gif)
 
-React.js web app utilising a REST API for country data to allow users to test their geography knowledge. Users can choose a specific region, number of questions and categories such as flags, capitals and populations to generate questions and answers, with their score being presented on completion.
+React.js web app using bundled country data to allow users to test their geography knowledge. Users can choose a specific region, number of questions and categories such as flags, capitals and populations to generate questions and answers, with their score being presented on completion.
+
+Country data is sourced from [mledoze/countries](https://github.com/mledoze/countries) (independent nations only).
 
 Technologies used:
 - React
