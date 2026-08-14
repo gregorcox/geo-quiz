@@ -29,7 +29,14 @@ const Question = ({ categories, countries, number }: QuestionProps) => {
 
   if (questionsAnswered >= number) {
     return (
-      <Suspense fallback={<div className="loader" aria-label="Loading results" />}>
+      <Suspense
+        fallback={
+          <div
+            className="mx-auto h-12 w-12 animate-spin-slow rounded-full border-4 border-slate-200 border-t-sky-600 dark:border-slate-700 dark:border-t-sky-400"
+            aria-label="Loading results"
+          />
+        }
+      >
         <QuizEnd score={correctAnswers} questionsAnswered={number} />
       </Suspense>
     );
@@ -48,22 +55,32 @@ const Question = ({ categories, countries, number }: QuestionProps) => {
   }
 
   return (
-    <div className="question-container">
-      <span className="score-count">
+    <section
+      aria-labelledby="question-heading"
+      className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+    >
+      <span className="absolute right-4 top-4 rounded-full bg-sky-600 px-3 py-1 text-xs font-semibold text-white dark:bg-sky-500">
         {questionsAnswered + 1}/{number}
       </span>
-      <h3 className="title">
-        What is the {category} of {selectedCountry.name.common}?
-      </h3>
 
-      <AnswerOptions
-        key={`${selectedCountry.name.common}-${category}-${questionsAnswered}`}
-        category={category}
-        correctCountry={selectedCountry}
-        countries={countries}
-        onNextQuestion={handleNextQuestion}
-      />
-    </div>
+      <h2 id="question-heading" className="mt-6 text-center text-xl font-semibold sm:text-2xl">
+        What is the {category} of{" "}
+        <span className="text-sky-700 dark:text-sky-300">
+          {selectedCountry.name.common}
+        </span>
+        ?
+      </h2>
+
+      <div className="mt-8">
+        <AnswerOptions
+          key={`${selectedCountry.name.common}-${category}-${questionsAnswered}`}
+          category={category}
+          correctCountry={selectedCountry}
+          countries={countries}
+          onNextQuestion={handleNextQuestion}
+        />
+      </div>
+    </section>
   );
 };
 

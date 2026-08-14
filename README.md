@@ -11,6 +11,7 @@ Country data is sourced from [mledoze/countries](https://github.com/mledoze/coun
 - React 18
 - TypeScript
 - Vite
+- Tailwind CSS
 - Vitest
 - ESLint & Prettier
 
