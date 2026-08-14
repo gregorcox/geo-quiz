@@ -2,34 +2,38 @@
 
 ![](public/geo.gif)
 
-React.js web app using bundled country data to allow users to test their geography knowledge. Users can choose a specific region, number of questions and categories such as flags, capitals and populations to generate questions and answers, with their score being presented on completion.
+React web app using bundled country data to test your geography knowledge. Choose a region, number of questions, and categories (flags, capitals, populations) to play.
 
 Country data is sourced from [mledoze/countries](https://github.com/mledoze/countries) (independent nations only).
 
-Technologies used:
-- React
-- React Hooks
+## Technologies
+
+- React 18
 - TypeScript
-- SCSS
+- Vite
 - Vitest
 
-See the code in the browser [here!](https://jovial-shockley-ee3800.netlify.app/)
+## Live demo
 
-## Available Scripts
+[geo-quiz.netlify.app](https://jovial-shockley-ee3800.netlify.app/)
 
-In the project directory, you can run:
+## Development
 
-### `npm start`
+```bash
+npm install
+npm start
+```
 
-Runs the app in development mode with Vite.<br />
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+Open [http://localhost:5173](http://localhost:5173).
 
-The page will reload if you make edits.
+### Other scripts
 
-### `npm test`
+| Command | Description |
+|---------|-------------|
+| `npm test` | Run Vitest once |
+| `npm run build` | Type-check and build to `dist/` |
+| `npm run preview` | Preview the production build |
 
-Runs the Vitest test suite once.
+## Deployment
 
-### `npm run build`
-
-Type-checks the project and creates a production build in `dist/`.
+The app is configured for [Netlify](https://www.netlify.com/) via `netlify.toml`. The publish directory is `dist/` (not CRA's old `build/` folder).
