@@ -1,57 +1,73 @@
-import React, { useState } from "react";
+import { useState, type ChangeEvent, type ReactNode } from "react";
 import { FaCheckCircle, FaCity, FaRegFlag } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import CountryContainer from "./CountryContainer";
+import type { QuizCategory } from "../types/quiz";
 
 const Landing = () => {
   const [region, setRegion] = useState("all");
-  const [categories, setCategories] = useState([
+  const [categories, setCategories] = useState<QuizCategory[]>([
     "capital",
     "population",
     "flag",
   ]);
   const [loadQuiz, setLoadQuiz] = useState(false);
-  const [numberOfQuestions, setNumber] = useState(5);
+  const [numberOfQuestions, setNumber] = useState("5");
   const [error, setError] = useState(false);
 
-  const handleChange = ({ target }) => {
-    if (target.name === "region") setRegion(target.value);
-    if (target.name === "numberOfQuestions") setNumber(target.value);
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+
+    if (name === "region") {
+      setRegion(value);
+    }
+
+    if (name === "numberOfQuestions") {
+      setNumber(value);
+    }
   };
 
-  const handleCategoryChange = (evt) => {
-    const { name } = evt.target;
+  const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    const category = name as QuizCategory;
 
-    if (categories.includes(name)) {
-      setCategories(categories.filter((category) => category !== name));
-    } else {
-      setCategories([...categories, name]);
+    if (categories.includes(category)) {
+      setCategories(categories.filter((item) => item !== category));
+      return;
     }
+
+    setCategories([...categories, category]);
   };
 
   const handleClick = () => {
     if (categories.length) {
       setLoadQuiz(true);
-    } else {
-      setError(true);
+      setError(false);
+      return;
     }
+
+    setError(true);
   };
 
-  // Load quiz if the user clicks the continue button and there are no errors
+  const handleRestart = () => {
+    setLoadQuiz(false);
+  };
+
   if (loadQuiz) {
     return (
       <CountryContainer
         region={region}
         categories={categories}
         number={parseInt(numberOfQuestions, 10)}
+        onRestart={handleRestart}
       />
     );
   }
 
   const regionSelector = (
     <div className="category-options">
-      <label>Select a region:</label>
-      <select name="region" onChange={handleChange}>
+      <label htmlFor="region">Select a region:</label>
+      <select id="region" name="region" value={region} onChange={handleChange}>
         <option value="all">All</option>
         <option value="africa">Africa</option>
         <option value="americas">Americas</option>
@@ -62,7 +78,11 @@ const Landing = () => {
     </div>
   );
 
-  const categoryOptions = [
+  const categoryOptions: Array<{
+    label: string;
+    name: QuizCategory;
+    icon: ReactNode;
+  }> = [
     {
       label: "Capitals",
       name: "capital",
@@ -138,8 +158,13 @@ const Landing = () => {
 
   const questions = (
     <>
-      <label>How many questions would you like?</label>
-      <select name="numberOfQuestions" onChange={handleChange}>
+      <label htmlFor="numberOfQuestions">How many questions would you like?</label>
+      <select
+        id="numberOfQuestions"
+        name="numberOfQuestions"
+        value={numberOfQuestions}
+        onChange={handleChange}
+      >
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="25">25</option>
@@ -155,7 +180,9 @@ const Landing = () => {
 
       {questions}
 
-      <button onClick={handleClick}>Continue</button>
+      <button type="button" onClick={handleClick}>
+        Continue
+      </button>
 
       {error ? <p>Please select at least 1 category</p> : null}
     </div>

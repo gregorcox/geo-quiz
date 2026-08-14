@@ -1,41 +1,45 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { getRandomItem } from "../utils";
 import AnswerOptions from "./AnswerOptions";
 import QuizEnd from "./QuizEnd";
+import {
+  getCategoryValue,
+  type Country,
+  type QuizCategory,
+} from "../types/quiz";
 
-interface IProps {
-  categories: string[];
-  countries: string[];
+interface QuestionProps {
+  categories: QuizCategory[];
+  countries: Country[];
   number: number;
 }
 
-const Question = ({ categories, countries, number }: IProps) => {
-  let [questionsAnswered, addQuestionAnswered] = useState(0);
-  let [correctAnswers, addCorrectAnswer] = useState(0);
+const Question = ({ categories, countries, number }: QuestionProps) => {
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
-  const generateNewQuestion = (prevResult: Boolean) => {
-    questionsAnswered++;
+  const handleNextQuestion = (wasCorrect: boolean) => {
+    if (wasCorrect) {
+      setCorrectAnswers((previous) => previous + 1);
+    }
 
-    // Add one to the score if the answer was correct
-    if (prevResult) correctAnswers++;
-
-    addQuestionAnswered(questionsAnswered);
-    addCorrectAnswer(correctAnswers);
+    setQuestionsAnswered((previous) => previous + 1);
   };
 
-  let selectedCountry = getRandomItem(countries);
-  let category: string = getRandomItem(categories);
-
-  if (!selectedCountry[category]) {
-    selectedCountry = getRandomItem(countries);
-    category = getRandomItem(categories);
+  if (questionsAnswered >= number) {
+    return <QuizEnd score={correctAnswers} questionsAnswered={number} />;
   }
 
-  // Check if the user has answered every question
-  if (questionsAnswered === number) {
-    return (
-      <QuizEnd score={correctAnswers} questionsAnswered={questionsAnswered} />
-    );
+  let selectedCountry = getRandomItem(countries);
+  let category = getRandomItem(categories);
+
+  for (let attempt = 0; attempt < 20; attempt++) {
+    if (getCategoryValue(selectedCountry, category)) {
+      break;
+    }
+
+    selectedCountry = getRandomItem(countries);
+    category = getRandomItem(categories);
   }
 
   return (
@@ -51,7 +55,7 @@ const Question = ({ categories, countries, number }: IProps) => {
         category={category}
         correctCountry={selectedCountry}
         countries={countries}
-        generateNewQuestion={generateNewQuestion}
+        onNextQuestion={handleNextQuestion}
       />
     </div>
   );
