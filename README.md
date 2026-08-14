@@ -4,7 +4,7 @@
 
 React web app using bundled country data to test your geography knowledge. Choose a region, number of questions, and categories (flags, capitals, populations) to play.
 
-Country data is sourced from [mledoze/countries](https://github.com/mledoze/countries) (independent nations only).
+Country data is sourced from [mledoze/countries](https://github.com/mledoze/countries) (independent nations only). Population figures are merged from [World Bank population data](https://github.com/datasets/population).
 
 ## Technologies
 

@@ -1,8 +1,8 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { getRandomItem } from "../utils";
 import AnswerOptions from "./AnswerOptions";
 import {
-  getCategoryValue,
+  countrySupportsCategory,
   type Country,
   type QuizCategory,
 } from "../types/quiz";
@@ -18,6 +18,14 @@ interface QuestionProps {
 const Question = ({ categories, countries, number }: QuestionProps) => {
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+
+  const eligibleCountries = useMemo(
+    () =>
+      countries.filter((country) =>
+        categories.some((category) => countrySupportsCategory(country, category))
+      ),
+    [categories, countries]
+  );
 
   const handleNextQuestion = (wasCorrect: boolean) => {
     if (wasCorrect) {
@@ -42,15 +50,23 @@ const Question = ({ categories, countries, number }: QuestionProps) => {
     );
   }
 
-  let selectedCountry = getRandomItem(countries);
+  if (eligibleCountries.length === 0) {
+    return (
+      <p className="text-center text-sm text-red-600 dark:text-red-400" role="alert">
+        No countries in this region have data for the selected categories.
+      </p>
+    );
+  }
+
+  let selectedCountry = getRandomItem(eligibleCountries);
   let category = getRandomItem(categories);
 
   for (let attempt = 0; attempt < 20; attempt++) {
-    if (getCategoryValue(selectedCountry, category)) {
+    if (countrySupportsCategory(selectedCountry, category)) {
       break;
     }
 
-    selectedCountry = getRandomItem(countries);
+    selectedCountry = getRandomItem(eligibleCountries);
     category = getRandomItem(categories);
   }
 

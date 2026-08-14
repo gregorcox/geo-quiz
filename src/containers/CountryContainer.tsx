@@ -1,17 +1,15 @@
 import { useMemo } from "react";
 import Question from "../components/Question";
 import { getCountriesByRegion } from "../data/loadCountries";
-import type { QuizCategory } from "../types/quiz";
+import { primaryButtonSmClassName } from "../styles";
+import type { QuizCategory, QuizRegion } from "../types/quiz";
 
 interface CountryContainerProps {
-  region: string;
+  region: QuizRegion;
   categories: QuizCategory[];
   number: number;
   onRestart: () => void;
 }
-
-const primaryButtonClassName =
-  "rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:hover:bg-sky-400";
 
 const CountryContainer = ({
   region,
@@ -27,7 +25,11 @@ const CountryContainer = ({
         <p className="text-slate-700 dark:text-slate-300">
           No countries found for this region. Please try another selection.
         </p>
-        <button type="button" className={`${primaryButtonClassName} mt-4`} onClick={onRestart}>
+        <button
+          type="button"
+          className={`${primaryButtonSmClassName} mt-4`}
+          onClick={onRestart}
+        >
           Go back
         </button>
       </section>
@@ -37,7 +39,7 @@ const CountryContainer = ({
   return (
     <div className="space-y-6">
       <div className="flex justify-end">
-        <button type="button" className={primaryButtonClassName} onClick={onRestart}>
+        <button type="button" className={primaryButtonSmClassName} onClick={onRestart}>
           Start over
         </button>
       </div>

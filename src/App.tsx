@@ -34,7 +34,7 @@ function App() {
           </div>
           <button
             type="button"
-            className="rounded-lg border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+            className="cursor-pointer rounded-lg border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
             onClick={() => setDarkMode((current) => !current)}
             aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >

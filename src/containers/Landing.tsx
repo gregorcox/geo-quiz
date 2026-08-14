@@ -1,8 +1,16 @@
 import { useState, type ChangeEvent } from "react";
 import { FaCheckCircle, FaCity, FaRegFlag } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { getCountriesByRegion } from "../data/loadCountries";
+import { primaryButtonClassName, selectClassName } from "../styles";
 import CountryContainer from "./CountryContainer";
-import type { QuizCategory } from "../types/quiz";
+import {
+  isQuizRegion,
+  REGION_OPTIONS,
+  validateQuizSetup,
+  type QuizCategory,
+  type QuizRegion,
+} from "../types/quiz";
 
 const categoryConfig: Array<{
   label: string;
@@ -14,14 +22,8 @@ const categoryConfig: Array<{
   { label: "Populations", name: "population", Icon: FaPeopleGroup },
 ];
 
-const selectClassName =
-  "mt-2 w-full max-w-xs rounded-lg border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100";
-
-const primaryButtonClassName =
-  "rounded-lg bg-sky-600 px-5 py-2.5 font-medium text-white transition hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-sky-500 dark:hover:bg-sky-400";
-
 const Landing = () => {
-  const [region, setRegion] = useState("all");
+  const [region, setRegion] = useState<QuizRegion>("all");
   const [categories, setCategories] = useState<QuizCategory[]>([
     "capital",
     "population",
@@ -29,13 +31,14 @@ const Landing = () => {
   ]);
   const [loadQuiz, setLoadQuiz] = useState(false);
   const [numberOfQuestions, setNumber] = useState("5");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
 
-    if (name === "region") {
+    if (name === "region" && isQuizRegion(value)) {
       setRegion(value);
+      setError(null);
     }
 
     if (name === "numberOfQuestions") {
@@ -47,6 +50,8 @@ const Landing = () => {
     const { name } = event.target;
     const category = name as QuizCategory;
 
+    setError(null);
+
     if (categories.includes(category)) {
       setCategories(categories.filter((item) => item !== category));
       return;
@@ -55,14 +60,17 @@ const Landing = () => {
     setCategories([...categories, category]);
   };
 
-  const handleClick = () => {
-    if (categories.length) {
-      setLoadQuiz(true);
-      setError(false);
+  const handleSubmit = () => {
+    const countries = getCountriesByRegion(region);
+    const validation = validateQuizSetup(countries, categories);
+
+    if (!validation.ok) {
+      setError(validation.message);
       return;
     }
 
-    setError(true);
+    setLoadQuiz(true);
+    setError(null);
   };
 
   const handleRestart = () => {
@@ -96,7 +104,7 @@ const Landing = () => {
         className="mt-8 space-y-8"
         onSubmit={(event) => {
           event.preventDefault();
-          handleClick();
+          handleSubmit();
         }}
       >
         <div>
@@ -110,12 +118,11 @@ const Landing = () => {
             onChange={handleChange}
             className={selectClassName}
           >
-            <option value="all">All</option>
-            <option value="africa">Africa</option>
-            <option value="americas">Americas</option>
-            <option value="asia">Asia</option>
-            <option value="europe">Europe</option>
-            <option value="oceania">Oceania</option>
+            {REGION_OPTIONS.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -126,10 +133,7 @@ const Landing = () => {
               const isSelected = categories.includes(name);
 
               return (
-                <label
-                  key={name}
-                  className="relative cursor-pointer"
-                >
+                <label key={name} className="relative cursor-pointer">
                   <input
                     type="checkbox"
                     name={name}
@@ -196,7 +200,7 @@ const Landing = () => {
 
         {error ? (
           <p className="text-sm text-red-600 dark:text-red-400" role="alert">
-            Please select at least one category.
+            {error}
           </p>
         ) : null}
 

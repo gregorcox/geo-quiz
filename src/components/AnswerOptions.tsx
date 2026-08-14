@@ -1,8 +1,13 @@
 import { useMemo, useState } from "react";
-import { getRandomItem, hasDuplicates, hasEmptyValue, shuffle } from "../utils";
+import {
+  answerButtonClassName,
+  primaryButtonSmClassName,
+} from "../styles";
+import { buildMultipleChoiceAnswers } from "../utils";
 import {
   formatCategoryValue,
   getCategoryValue,
+  isValidCategoryValue,
   type CategoryValue,
   type Country,
   type QuizCategory,
@@ -14,9 +19,6 @@ interface AnswerOptionsProps {
   countries: Country[];
   onNextQuestion: (wasCorrect: boolean) => void;
 }
-
-const primaryButtonClassName =
-  "rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:hover:bg-sky-400";
 
 const AnswerOptions = ({
   category,
@@ -31,32 +33,17 @@ const AnswerOptions = ({
   const correctAnswer = getCategoryValue(correctCountry, category);
 
   const answers = useMemo(() => {
-    if (correctAnswer === undefined) {
-      return [];
+    if (!isValidCategoryValue(category, correctAnswer)) {
+      return null;
     }
 
-    const wrongAnswers = countries
+    const answerPool = countries
       .map((country) => getCategoryValue(country, category))
-      .filter(
-        (value): value is CategoryValue => value !== undefined && value !== ""
+      .filter((value): value is CategoryValue =>
+        isValidCategoryValue(category, value)
       );
 
-    const buildAnswers = (): CategoryValue[] => {
-      while (true) {
-        const nextAnswers = [
-          getRandomItem(wrongAnswers),
-          getRandomItem(wrongAnswers),
-          getRandomItem(wrongAnswers),
-          correctAnswer,
-        ];
-
-        if (!hasDuplicates(nextAnswers) && !hasEmptyValue(nextAnswers)) {
-          return nextAnswers;
-        }
-      }
-    };
-
-    return shuffle(buildAnswers());
+    return buildMultipleChoiceAnswers(correctAnswer, answerPool);
   }, [category, correctAnswer, countries]);
 
   const checkAnswer = (answer: CategoryValue) => {
@@ -65,8 +52,21 @@ const AnswerOptions = ({
     setIsCorrect(answer === correctAnswer);
   };
 
-  const answerButtonClassName =
-    "rounded-xl border border-slate-200 bg-white px-4 py-3 text-left font-medium transition hover:border-sky-400 hover:bg-sky-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:cursor-default disabled:opacity-70 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-sky-500 dark:hover:bg-slate-700/80";
+  const getAnswerButtonClassName = () => {
+    if (category === "flag") {
+      return `${answerButtonClassName} py-6 text-6xl sm:text-7xl`;
+    }
+
+    return `${answerButtonClassName} min-h-[3.5rem]`;
+  };
+
+  if (!answers) {
+    return (
+      <p className="text-center text-sm text-red-600 dark:text-red-400" role="alert">
+        Not enough unique answers available for this question.
+      </p>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -82,9 +82,7 @@ const AnswerOptions = ({
         {answers.map((answer) => (
           <button
             type="button"
-            className={`${answerButtonClassName} ${
-              category === "flag" ? "py-6 text-center text-6xl sm:text-7xl" : ""
-            }`}
+            className={getAnswerButtonClassName()}
             disabled={buttonsDisabled}
             key={`${category}-${String(answer)}`}
             onClick={() => checkAnswer(answer)}
@@ -109,7 +107,7 @@ const AnswerOptions = ({
         <div className="flex justify-center">
           <button
             type="button"
-            className={primaryButtonClassName}
+            className={primaryButtonSmClassName}
             onClick={() => onNextQuestion(isCorrect)}
           >
             Next
